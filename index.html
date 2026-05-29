@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nani Ji Ka Ashirwaad 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Devanagari:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marigold: #F4A72A;
+    --deep-red: #8B1A1A;
+    --rose: #D4547A;
+    --cream: #FDF6EC;
+    --warm-gold: #C8922A;
+    --soft-pink: #F9E4EC;
+    --maroon: #6B0F1A;
+    --sage: #7A9E7E;
+    --dusk: #3D2B1F;
+    --petal: #F7C5D0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--dusk);
+    overflow-x: hidden;
+  }
+
+  /* ── Floating petals ── */
+  .petal-wrap {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .petal {
+    position: absolute; top: -60px;
+    font-size: 1.4rem;
+    animation: petalFall linear infinite;
+    opacity: 0.7;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    background: radial-gradient(ellipse at 30% 60%, #F9E4D0 0%, #FDF0E6 40%, #F8E8F0 80%, #FDF6EC 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 20px 80px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4547A' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .diya-top { font-size: 3rem; animation: diyaFlicker 2s ease-in-out infinite; margin-bottom: 10px; }
+  @keyframes diyaFlicker {
+    0%,100% { transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 8px #F4A72A); }
+    50%      { transform: scale(1.08) rotate(3deg); filter: drop-shadow(0 0 20px #F4A72A); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 0.95rem; letter-spacing: 0.3em;
+    color: var(--rose); text-transform: uppercase;
+    margin-bottom: 14px; opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--maroon);
+    text-shadow: 2px 3px 12px rgba(139,26,26,0.12);
+    opacity: 0; animation: fadeUp 1s ease 0.6s forwards;
+  }
+  .hero-title span { color: var(--warm-gold); font-style: italic; }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-style: italic;
+    color: var(--deep-red); margin-top: 16px;
+    max-width: 540px; line-height: 1.7;
+    opacity: 0; animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  /* ── Photo frame ── */
+  .photo-area {
+    position: relative; margin: 50px auto 0;
+    width: 280px; height: 320px;
+    opacity: 0; animation: fadeUp 1.2s ease 1.2s forwards;
+  }
+  .photo-frame {
+    width: 100%; height: 100%;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    overflow: hidden;
+    border: 6px solid var(--marigold);
+    box-shadow: 0 0 0 3px var(--cream), 0 0 0 9px var(--rose),
+                0 20px 60px rgba(139,26,26,0.25);
+    position: relative; z-index: 1;
+  }
+  .photo-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(10%) saturate(1.1);
+  }
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #F9D8E0 0%, #FDE8C8 50%, #F9D8E0 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; color: var(--maroon);
+  }
+  .photo-placeholder span { font-size: 3rem; }
+  .photo-placeholder p { font-size: 0.85rem; font-style: italic; opacity: 0.6; text-align: center; padding: 0 20px; }
+
+  .photo-ornament {
+    position: absolute;
+    font-size: 2rem;
+    animation: floatOrn 3s ease-in-out infinite;
+  }
+  .po1 { top: -20px; left: -20px; animation-delay: 0s; }
+  .po2 { top: -20px; right: -20px; animation-delay: 1s; }
+  .po3 { bottom: -10px; left: 10px; animation-delay: 0.5s; }
+  .po4 { bottom: -10px; right: 10px; animation-delay: 1.5s; }
+  @keyframes floatOrn {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8px) rotate(10deg); }
+  }
+
+  .scroll-hint {
+    margin-top: 50px;
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    color: var(--rose); text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1s ease 2.2s forwards;
+  }
+  .scroll-arrow { animation: bounce 1.5s ease-in-out infinite; display: block; font-size: 1.5rem; margin-top: 6px; }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Section base ── */
+  section { position: relative; z-index: 1; padding: 80px 20px; }
+  .section-inner { max-width: 760px; margin: 0 auto; }
+  .section-tag {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 0.8rem; letter-spacing: 0.35em;
+    color: var(--rose); text-transform: uppercase;
+    display: block; margin-bottom: 14px;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--maroon); line-height: 1.25;
+    margin-bottom: 30px;
+  }
+  .section-heading em { color: var(--warm-gold); }
+
+  /* ── Divider ── */
+  .divider {
+    text-align: center; padding: 20px 0;
+    font-size: 1.5rem; color: var(--marigold);
+    letter-spacing: 0.4em;
+  }
+
+  /* ── Memory cards ── */
+  .memories-bg {
+    background: linear-gradient(160deg, #FDF0E0 0%, #FBE8F0 50%, #FDF0E0 100%);
+  }
+  .memory-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 22px; margin-top: 10px;
+  }
+  @media (max-width: 580px) { .memory-grid { grid-template-columns: 1fr; } }
+
+  .memory-card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 24px;
+    border-top: 4px solid var(--marigold);
+    box-shadow: 0 6px 30px rgba(139,26,26,0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    opacity: 0; transform: translateY(30px);
+    animation: cardReveal 0.7s ease forwards;
+  }
+  .memory-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(139,26,26,0.14);
+  }
+  .memory-card:nth-child(1) { animation-delay: 0.1s; }
+  .memory-card:nth-child(2) { animation-delay: 0.25s; }
+  .memory-card:nth-child(3) { animation-delay: 0.4s; }
+  .memory-card:nth-child(4) { animation-delay: 0.55s; }
+  @keyframes cardReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--maroon);
+    margin-bottom: 10px; font-weight: 700;
+  }
+  .card-text {
+    font-size: 1.05rem; line-height: 1.75;
+    color: var(--dusk); font-style: italic;
+  }
+
+  /* ── Nuskhe section ── */
+  .nuskhe-section { background: var(--cream); }
+  .nuskhe-list { margin-top: 20px; display: flex; flex-direction: column; gap: 18px; }
+  .nuskhe-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: white; border-radius: 16px; padding: 22px 24px;
+    border-left: 5px solid var(--rose);
+    box-shadow: 0 4px 20px rgba(212,84,122,0.08);
+    transition: transform 0.3s ease;
+  }
+  .nuskhe-item:hover { transform: translateX(6px); }
+  .nuskhe-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+  .nuskhe-text { font-size: 1.05rem; line-height: 1.75; font-style: italic; }
+  .nuskhe-text strong { color: var(--maroon); font-style: normal; display: block; margin-bottom: 4px; font-family: 'Playfair Display', serif; }
+
+  /* ── Photo gallery ── */
+  .gallery-section { background: linear-gradient(135deg, #FDE8F0 0%, #FDF0DC 100%); }
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 20px;
+  }
+  @media (max-width: 480px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
+  .gallery-slot {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 8px 24px rgba(139,26,26,0.12);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  .gallery-slot:hover { transform: scale(1.04); box-shadow: 0 16px 40px rgba(139,26,26,0.2); }
+  .gallery-slot img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-slot .add-photo {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #FDE8F0, #FDF0DC);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; color: var(--rose);
+    font-size: 0.8rem; text-align: center; padding: 12px;
+  }
+  .gallery-slot .add-photo span { font-size: 2rem; }
+  .gallery-upload-note {
+    text-align: center; margin-top: 16px;
+    font-size: 0.9rem; color: var(--rose); font-style: italic;
+  }
+
+  /* ── Ashirwaad (Blessing) ── */
+  .blessing-section {
+    background: linear-gradient(135deg, var(--maroon) 0%, #3D0A10 60%, #6B0F1A 100%);
+    color: var(--cream);
+    text-align: center;
+    padding: 100px 20px;
+    position: relative; overflow: hidden;
+  }
+  .blessing-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(244,167,42,0.12) 0%, transparent 70%);
+  }
+  .blessing-section .section-tag { color: var(--marigold); }
+  .blessing-section .section-heading { color: var(--cream); }
+
+  .blessing-card {
+    max-width: 680px; margin: 0 auto;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(244,167,42,0.3);
+    border-radius: 32px;
+    padding: 52px 44px;
+    position: relative;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 80px rgba(244,167,42,0.12), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  @media (max-width: 480px) { .blessing-card { padding: 36px 24px; } }
+
+  .blessing-quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem; line-height: 0.5;
+    color: var(--marigold); opacity: 0.25;
+    position: absolute; top: 20px; left: 24px;
+    pointer-events: none;
+  }
+
+  .nani-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--marigold);
+    margin: 0 auto 24px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(244,167,42,0.4);
+  }
+  .nani-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .nani-avatar-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #8B1A1A, #C8922A);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .blessing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    line-height: 1.9;
+    font-style: italic;
+    color: rgba(253,246,236,0.93);
+    margin-bottom: 30px;
+    position: relative; z-index: 1;
+  }
+  .blessing-hindi {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    line-height: 2.1;
+    color: var(--marigold);
+    margin-bottom: 30px;
+  }
+
+  .blessing-names {
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .name-badge {
+    background: rgba(244,167,42,0.15);
+    border: 1px solid rgba(244,167,42,0.35);
+    border-radius: 50px; padding: 10px 26px;
+    color: var(--marigold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+  }
+
+  /* ── Marigold garland divider ── */
+  .garland {
+    text-align: center; font-size: 1.6rem;
+    padding: 10px 0; overflow: hidden;
+    white-space: nowrap; letter-spacing: 0.1em;
+  }
+
+  /* ── Final letter ── */
+  .letter-section {
+    background: var(--cream);
+    padding: 80px 20px;
+  }
+  .letter-card {
+    max-width: 680px; margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    padding: 52px 48px;
+    box-shadow: 0 12px 60px rgba(139,26,26,0.1);
+    border-top: 6px solid var(--marigold);
+    position: relative;
+  }
+  @media (max-width: 480px) { .letter-card { padding: 36px 24px; } }
+  .letter-card::before {
+    content: '🪔';
+    position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px #F4A72A);
+    animation: diyaFlicker 2s ease-in-out infinite;
+  }
+  .letter-salutation {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--maroon);
+    margin-bottom: 24px;
+  }
+  .letter-body {
+    font-size: 1.1rem; line-height: 2;
+    color: var(--dusk); font-style: italic;
+    white-space: pre-line;
+  }
+  .letter-sign {
+    margin-top: 34px;
+    font-family: 'Playfair Display', serif;
+    color: var(--maroon); font-size: 1.2rem;
+    border-top: 1px dashed var(--petal);
+    padding-top: 20px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--maroon);
+    color: rgba(253,246,236,0.7);
+    text-align: center;
+    padding: 36px 20px;
+    font-size: 0.9rem; font-style: italic;
+    letter-spacing: 0.05em;
+  }
+  footer strong { color: var(--marigold); }
+
+  /* ── Lightbox ── */
+  .lightbox {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85); z-index: 999;
+    align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; border: 3px solid var(--marigold); }
+  .lightbox-close {
+    position: absolute; top: 20px; right: 28px;
+    font-size: 2.5rem; color: var(--cream); cursor: pointer;
+    background: none; border: none; line-height: 1;
+  }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Candle glow ring ── */
+  .glow-ring {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(244,167,42,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating rose petals -->
+<div class="petal-wrap" id="petalWrap"></div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="glow-ring" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="diya-top">🪔</div>
+  <span class="hero-eyebrow">Ek Pyaar Bhari Yaad</span>
+  <h1 class="hero-title">Nani Ji Ka<br><span>Ashirwaad</span></h1>
+  <p class="hero-sub">Varsha aur Manisha ke liye —<br>Nani Ji ki yaadein, unka pyaar, aur unka aashirvaad humasha ke liye…</p>
+
+  <div class="photo-area">
+    <span class="photo-ornament po1">🌸</span>
+    <span class="photo-ornament po2">🌺</span>
+    <span class="photo-ornament po3">💛</span>
+    <span class="photo-ornament po4">🌼</span>
+    <div class="photo-frame" id="heroPhotoFrame">
+      <!-- Replace the src below with your photo -->
+      <img src="/mnt/user-data/uploads/1780071957662_image.png" alt="Nani Ji" onerror="this.parentNode.innerHTML='<div class=\'photo-placeholder\'><span>🧕</span><p>Nani Ji ki photo yahaan lagaayein</p></div>'">
+    </div>
+  </div>
+
+  <p class="scroll-hint">Neechey scroll karein <span class="scroll-arrow">↓</span></p>
+</div>
+
+<div class="divider">🌸 ✦ 🌸 ✦ 🌸</div>
+
+<!-- ══════════ MEMORIES ══════════ -->
+<section class="memories-bg">
+  <div class="section-inner">
+    <span class="section-tag reveal">Nani Ji ki Pyaari Yaadein</span>
+    <h2 class="section-heading reveal">Bachpan ke woh <em>Sone Ke Pal…</em></h2>
+    <div class="memory-grid">
+      <div class="memory-card">
+        <span class="card-icon">🏡</span>
+        <p class="card-title">Nani Ji Ka Ghar</p>
+        <p class="card-text">Jab bhi aap nani ke ghar aate the, wo ghar ek mela ban jaata tha. Darwaza khulte hi wo awaaz aati thi — "Aa gayi meri gudiya!" Wo ek feeling thi jo koi word describe nahi kar sakta.</p>
+      </div>
+      <div class="memory-card">
+        <span class="card-icon">👘</span>
+        <p class="card-title">Nani Ji Ke Kapde</p>
+        <p class="card-text">Unke purane zamane ke kapde — woh gehri rang ki sarees, woh sunahri kinari, woh khushboo jo sirf unke paas hoti thi. Woh pehnte the toh lagta tha koi raani chal rahi hain.</p>
+      </div>
+      <div class="memory-card">
+        <span class="card-icon">🍲</span>
+        <p class="card-title">Nani Ji Ka Khaana</p>
+        <p class="card-text">Unke haath ka khaana — woh dal, woh roti, woh meetha... Chahe kuch bhi banaayen, khushboo aati thi toh pet aur dil dono bhar jaate the. Koi chef match nahi kar sakta.</p>
+      </div>
+      <div class="memory-card">
+        <span class="card-icon">💬</span>
+        <p class="card-title">Nani Ji Ki Baatein</p>
+        <p class="card-text">Raat ko unke paas baith ke sunna — woh purani kahaaniyaan, woh hasi, woh "Tu meri beti hai, tujhe koi takleef nahi aane denge" — woh words aaj bhi dil mein gunjaते hain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="garland">🌼🌸🌺🌼🌸🌺🌼🌸🌺🌼🌸🌺🌼🌸🌺🌼🌸🌺🌼🌸🌺🌼</div>
+
+<!-- ══════════ NUSKHE ══════════ -->
+<section class="nuskhe-section">
+  <div class="section-inner">
+    <span class="section-tag reveal">Nani Ji Ki Samajhdaari</span>
+    <h2 class="section-heading reveal">Nani Ji Ke <em>Anmol Nuskhe</em></h2>
+    <div class="nuskhe-list">
+      <div class="nuskhe-item reveal">
+        <span class="nuskhe-icon">🌿</span>
+        <div class="nuskhe-text">
+          <strong>Sehat Ka Nuskha</strong>
+          "Roz subah ek gilaa paani peena, sab dard door ho jaata hai bete." Unka ye nuskha koi doctor nahi batata tha — par kaam karta tha!
+        </div>
+      </div>
+      <div class="nuskhe-item reveal">
+        <span class="nuskhe-icon">💛</span>
+        <div class="nuskhe-text">
+          <strong>Rishton Ka Nuskha</strong>
+          "Zyada mat soch, bas pyaar karo aur maafi maang lo — ghar mein sukh rehta hai." Kitni badi baat thi woh — itni seedhi, itni sachchi.
+        </div>
+      </div>
+      <div class="nuskhe-item reveal">
+        <span class="nuskhe-icon">🌙</span>
+        <div class="nuskhe-text">
+          <strong>Neend Ka Nuskha</strong>
+          "Raat ko sone se pehle doodh peena — neend bhi aayegi aur sapne bhi achhe aayenge." Unka woh pyaar bhi ek nuskha tha.
+        </div>
+      </div>
+      <div class="nuskhe-item reveal">
+        <span class="nuskhe-icon">🙏</span>
+        <div class="nuskhe-text">
+          <strong>Zindagi Ka Nuskha</strong>
+          "Khush raho, sabse milo, aur Bhagwaan pe bharosa rakho — zindagi mein koi takleef nahi rukegi." Ye nuskha unki poori zindagi ka saar tha.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">🕯️ ✦ 🙏 ✦ 🕯️</div>
+
+<!-- ══════════ PHOTO GALLERY ══════════ -->
+<section class="gallery-section">
+  <div class="section-inner">
+    <span class="section-tag reveal">Hamaari Tasveerein</span>
+    <h2 class="section-heading reveal">Yaadgaar <em>Pal</em></h2>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Slot 1 — main uploaded photo -->
+      <div class="gallery-slot" onclick="openLightbox(this)">
+        <img src="/mnt/user-data/uploads/1780071957662_image.png" alt="Photo" onerror="this.parentNode.innerHTML='<div class=\'add-photo\'><span>📸</span><p>Photo yahaan</p></div>'">
+      </div>
+      <!-- Empty slots for user to fill -->
+      <div class="gallery-slot" onclick="triggerUpload(this)">
+        <div class="add-photo"><span>➕</span><p>Photo add karein</p></div>
+        <input type="file" accept="image/*" style="display:none" onchange="loadImage(event, this.parentNode)">
+      </div>
+      <div class="gallery-slot" onclick="triggerUpload(this)">
+        <div class="add-photo"><span>➕</span><p>Photo add karein</p></div>
+        <input type="file" accept="image/*" style="display:none" onchange="loadImage(event, this.parentNode)">
+      </div>
+      <div class="gallery-slot" onclick="triggerUpload(this)">
+        <div class="add-photo"><span>➕</span><p>Photo add karein</p></div>
+        <input type="file" accept="image/*" style="display:none" onchange="loadImage(event, this.parentNode)">
+      </div>
+      <div class="gallery-slot" onclick="triggerUpload(this)">
+        <div class="add-photo"><span>➕</span><p>Photo add karein</p></div>
+        <input type="file" accept="image/*" style="display:none" onchange="loadImage(event, this.parentNode)">
+      </div>
+      <div class="gallery-slot" onclick="triggerUpload(this)">
+        <div class="add-photo"><span>➕</span><p>Photo add karein</p></div>
+        <input type="file" accept="image/*" style="display:none" onchange="loadImage(event, this.parentNode)">
+      </div>
+    </div>
+    <p class="gallery-upload-note reveal">💡 Kisi bhi "+" square par click karke apni tasveerein add karein</p>
+  </div>
+</section>
+
+<div class="garland">🌺🌸🌼🌺🌸🌼🌺🌸🌼🌺🌸🌼🌺🌸🌼🌺🌸🌼🌺🌸🌼🌺</div>
+
+<!-- ══════════ ASHIRWAAD ══════════ -->
+<section class="blessing-section">
+  <div class="section-inner" style="text-align:center;">
+    <span class="section-tag reveal">Nani Ji Ka Aashirvaad</span>
+    <h2 class="section-heading reveal" style="color:var(--cream);">Nani Ji <em style="color:var(--marigold);">Kehti Hain…</em></h2>
+    <div class="blessing-card reveal">
+      <div class="blessing-quote-mark">"</div>
+
+      <div class="nani-avatar">
+        <img src="/mnt/user-data/uploads/1780071957662_image.png" alt="Nani Ji" onerror="this.parentNode.innerHTML='<div class=\'nani-avatar-placeholder\'>🧕</div>'">
+      </div>
+
+      <p class="blessing-hindi">
+        मेरी प्यारी बच्चियों —<br>
+        वर्षा और मनीषा —
+      </p>
+
+      <p class="blessing-text">
+        "Main jaanti hoon, aaj tum mujhe bahut yaad kar rahi ho. Aankhein bheeg rahi hongi, dil bhaari hoga. Par sunna — main kahin nahi gayi. Main wahi hoon jahan tha — tumhare dil mein, tumhare ghar mein, tumhare har pal mein.
+        <br><br>
+        Jab bhi chai ki khushboo aaye — main wahan hoon. Jab bhi raat ko tara chamke — woh mera salaam hai. Jab bhi tumhare chehere par muskaan aaye — woh mera hi aashirvaad hai.
+        <br><br>
+        Mera aashirvaad tum dono ke saath hai — Varsha, meri gudiya, aur Manisha, meri beti — humasha, humasha, humasha."
+      </p>
+
+      <p class="blessing-hindi">
+        मत रोओ मेरे लिए —<br>
+        मैं हमेशा तुम्हारे साथ हूँ। 🙏
+      </p>
+
+      <div class="blessing-names">
+        <span class="name-badge">💛 Varsha</span>
+        <span class="name-badge">🌸 Manisha</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">🌸 ✦ 🕯️ ✦ 🌸</div>
+
+<!-- ══════════ LETTER ══════════ -->
+<section class="letter-section">
+  <div class="section-inner">
+    <div class="letter-card reveal">
+      <p class="letter-salutation">Meri Priya Varsha aur Manisha Ji,</p>
+      <p class="letter-body">Kuch rishte anant hote hain — unhe na waqt khatam kar sakta hai, na doori, na alvida.
+
+Nani Ji ka pyaar ek aisi roshni hai jo kabhi bujhti nahi. Unki hasi, unki aawaaz, unka woh haath jab wo siir pe rakhti thin — woh yaadein tumhari umar bhar saath chalenge.
+
+Varsha — nani ko tum per bahut fakhr tha. Woh chahti thin ki tum khilkhilao, bado, muskuraao. Unka sapna tha tumhari khushi.
+
+Manisha Ji — ek maa ka dil hamesha apni beti ke liye dhakdhakta rehta hai. Aur aaj bhi, kahan se bhi, Nani Ji ka dil aapke liye dua kar raha hai.
+
+Rona mat — balki jab bhi Nani Ji ki yaad aaye, ek diya jalao, ek muskaan laao, aur kahna: "Nani Ji, hum theek hain — aur hum hamesha aapko yaad rakheinge."
+
+      </p>
+      <div class="letter-sign">
+        — Nani Ji ki yaad mein<br>
+        <span style="color:var(--rose); font-size:0.95rem;">Pyaar se, 💛</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p>🌸 <strong>Varsha</strong> aur <strong>Manisha</strong> — Nani Ji ka aashirvaad hamesha tumhare saath hai 🌸</p>
+  <p style="margin-top:10px; font-size:0.8rem; opacity:0.5;">Made with ❤️ in loving memory</p>
+</footer>
+
+<script>
+  /* ── Petals ── */
+  const wrap = document.getElementById('petalWrap');
+  const EMOJIS = ['🌸','🌺','🌼','🍀','✨','🌹','💛','🌷'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+    wrap.appendChild(p);
+  }
+
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── Gallery upload ── */
+  function triggerUpload(slot) {
+    const input = slot.querySelector('input[type="file"]');
+    if (input) input.click();
+  }
+  function loadImage(event, slot) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      slot.innerHTML = `<img src="${e.target.result}" alt="Memory" style="width:100%;height:100%;object-fit:cover;">`;
+      slot.onclick = () => openLightbox(slot);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ── Lightbox ── */
+  function openLightbox(slot) {
+    const img = slot.querySelector('img');
+    if (!img) return;
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+</script>
+</body>
+</html>
