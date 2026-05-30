@@ -26,15 +26,18 @@
         
         .music-control-panel { position: fixed; bottom: 110px; right: 20px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 40px; padding: 0.8rem 1.2rem; z-index: 998; display: flex; gap: 1rem; align-items: center; border: 1px solid var(--primary-gold); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
         .music-control-panel.hidden { display: none; }
-        .music-control-btn { background: var(--deep-rose); border: none; color: white; font-size: 1.2rem; padding: 0.4rem 0.8rem; border-radius: 30px; cursor: pointer; font-weight: bold; }
+        .music-control-btn { background: var(--deep-rose); border: none; color: white; font-size: 1.2rem; padding: 0.4rem 0.8rem; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .music-control-btn:hover { background: var(--primary-gold); color: #2C1810; transform: scale(1.05); }
         .volume-slider { width: 80px; cursor: pointer; }
-        .song-name { color: var(--primary-gold); font-size: 0.7rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+        .song-name { color: var(--primary-gold); font-size: 0.7rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .music-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2001; align-items: center; justify-content: center; }
         .music-modal.active { display: flex; }
         .music-modal-content { background: var(--cream); border-radius: 20px; padding: 1.5rem; max-width: 90%; width: 400px; text-align: center; }
         .song-list { max-height: 300px; overflow-y: auto; margin: 1rem 0; }
-        .song-item { background: #ffe4e1; margin: 0.5rem 0; padding: 0.8rem; border-radius: 30px; cursor: pointer; }
+        .song-item { background: #ffe4e1; margin: 0.5rem 0; padding: 0.8rem; border-radius: 30px; cursor: pointer; transition: 0.2s; font-weight: 500; }
+        .song-item:hover { background: var(--deep-rose); color: white; transform: scale(1.02); }
         .song-item.active-song { background: var(--deep-rose); color: white; }
+        .music-close { background: var(--deep-rose); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; margin-bottom: 1rem; }
         
         /* Floating & Blessing Modal */
         .floating-container { position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; overflow: hidden; }
@@ -44,11 +47,12 @@
         .blessing-message-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, var(--deep-rose), #8B1A4A); color: white; padding: 2rem; border-radius: 25px; z-index: 2000; display: none; text-align: center; max-width: 85vw; width: 90%; animation: popIn 0.4s; border: 3px solid var(--primary-gold); }
         .blessing-message-container.active { display: flex; flex-direction: column; align-items: center; }
         @keyframes popIn { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-        .close-blessing-btn { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.2); border: 2px solid var(--primary-gold); width: 45px; height: 45px; border-radius: 50%; font-size: 1.8rem; cursor: pointer; }
+        .close-blessing-btn { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.2); border: 2px solid var(--primary-gold); width: 45px; height: 45px; border-radius: 50%; font-size: 1.8rem; cursor: pointer; transition: 0.2s; }
+        .close-blessing-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
         .blessing-diya { font-size: 3.5rem; animation: diyaFlicker 2s infinite; }
         @keyframes diyaFlicker { 0%,100%{ transform: scale(1) rotate(-3deg); } 50%{ transform: scale(1.1) rotate(3deg); } }
         
-        nav { position: fixed; top: 0; width: 100%; background: var(--glass-bg); backdrop-filter: blur(10px); padding: 0.8rem 1rem; z-index: 100; }
+        nav { position: fixed; top: 0; width: 100%; background: var(--glass-bg); backdrop-filter: blur(10px); padding: 0.8rem 1rem; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         .nav-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .nav-logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 2rem); color: var(--deep-rose); font-weight: 700; }
         .nav-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
@@ -68,10 +72,12 @@
         .photo-tile-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(199,21,133,0.6), rgba(255,215,0,0.4)); display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 2rem; opacity: 0; transition: 0.4s; }
         .photo-tile:hover .photo-tile-overlay, .photo-tile:active .photo-tile-overlay { opacity: 1; }
         .photo-tile-label { font-family: 'Playfair Display', serif; font-size: 2rem; color: white; text-shadow: 0 2px 10px black; }
+        .photo-tile-description { color: rgba(255,255,255,0.95); font-size: 1rem; }
         .memory-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.8rem; margin-top: 2rem; }
         .memory-tile { background: linear-gradient(135deg, #FFF9F5, #FFF0E6); padding: 2rem; border-radius: 20px; border-left: 6px solid var(--deep-rose); transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .memory-tile:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(199,21,133,0.15); }
         .memory-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+        .memory-tile h3 { color: var(--deep-rose); margin-bottom: 0.5rem; }
         .wisdom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; }
         .wisdom-card { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,20,147,0.08)); padding: 1.5rem; border-radius: 20px; border: 2px solid var(--primary-gold); text-align: center; transition: 0.3s; backdrop-filter: blur(2px); }
         .wisdom-card:hover { transform: scale(1.03); border-color: var(--deep-rose); box-shadow: 0 15px 35px rgba(255,215,0,0.2); }
@@ -79,7 +85,9 @@
         .family-card { background: linear-gradient(145deg, #FFF9F5, #FFEFE6); padding: 1.5rem; border-radius: 25px; text-align: center; transition: 0.3s; border: 1px solid rgba(199,21,133,0.2); }
         .family-card:hover { transform: translateY(-5px); border-color: var(--deep-rose); }
         .blessing-section { background: linear-gradient(135deg, #B22234, #8B1A4A); border-radius: 40px; padding: 3rem 2rem; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+        .blessing-hindi p { font-family: 'Noto Serif Devanagari', serif; margin: 0.5rem 0; }
         .btn { background: linear-gradient(135deg, var(--primary-gold), #FFB347); border: none; padding: 0.8rem 2rem; border-radius: 50px; font-weight: bold; margin: 0.5rem; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .btn-secondary { background: rgba(255,255,255,0.2); color: white; border: 2px solid var(--primary-gold); }
         .letter-card { background: #FFFDF9; padding: 2.5rem; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-top: 8px solid var(--primary-gold); position: relative; font-family: 'Cormorant Garamond', serif; }
         .letter-salutation { font-size: 1.8rem; color: var(--deep-rose); font-weight: bold; }
@@ -89,9 +97,11 @@
         footer { background: linear-gradient(135deg, #4a2a1f, #7a4a2a); color: #fff7e8; text-align: center; padding: 2.5rem; margin-top: 3rem; }
         .lightbox { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
         .lightbox.active { display: flex; }
-        .heart-burst { position: fixed; font-size: 2rem; pointer-events: none; animation: burst-up 2.5s forwards; }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; }
+        .lightbox-content img { max-width: 90vw; max-height: 90vh; border-radius: 15px; }
+        .heart-burst { position: fixed; font-size: 2rem; pointer-events: none; animation: burst-up 2.5s forwards; z-index: 10000; }
         @keyframes burst-up { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-150px) scale(0.3); } }
-        @media (max-width: 600px) { .letter-body { font-size: 1rem; } .memory-tile { padding: 1.2rem; } }
+        @media (max-width: 600px) { .letter-body { font-size: 1rem; } .memory-tile { padding: 1.2rem; } .music-control-panel { padding: 0.5rem 1rem; gap: 0.5rem; } .volume-slider { width: 60px; } }
     </style>
 </head>
 <body>
@@ -105,7 +115,7 @@
         <span class="song-name" id="currentSongName">✨ गीत ✨</span>
         <button class="music-control-btn" id="musicLibraryBtn">📂</button>
     </div>
-    <div class="music-modal" id="musicLibraryModal"><div class="music-modal-content"><button class="music-close" id="closeLibraryBtn">✖</button><h3>🎵 प्रिय गीत संग्रह 🎵</h3><div class="song-list" id="songListContainer"></div><p style="font-size:0.8rem;">⭐ निर्देश: songFiles array में अपने .mp3 का नाम लिखें</p></div></div>
+    <div class="music-modal" id="musicLibraryModal"><div class="music-modal-content"><button class="music-close" id="closeLibraryBtn">✖</button><h3>🎵 प्रिय गीत संग्रह 🎵</h3><div class="song-list" id="songListContainer"></div><p style="font-size:0.8rem; margin-top:10px;">⭐ अपने गानों के फ़ाइल नाम songFiles array में डालें</p></div></div>
     <div class="blessing-message-container" id="blessingModal"><button class="close-blessing-btn" onclick="closeBlessingMessage()">×</button><div class="blessing-diya">🪔</div><div class="blessing-message-title" id="blessingTitle">आशीर्वाद</div><div class="blessing-message-text" id="blessingText"></div><div class="blessing-message-footer">💛 नानी जी का अनंत प्रेम 💛</div></div>
     <div class="lightbox" id="lightbox"><div class="lightbox-content"><span class="lightbox-close" onclick="closeLightbox()">&times;</span><img id="lightboxImage" src=""></div></div>
 
@@ -113,13 +123,13 @@
 
     <div class="hero"><div class="hero-content"><p class="hero-subtitle">💛 अनंत प्रेम की गाथा 💛</p><h1 class="hero-title">नानी जी का <span class="gold">आशीर्वाद</span></h1><p class="hero-description">वर्षा और मनीषा के लिए... नानी जी की ममता, उनकी मीठी डांट, हाथों का बना खाना और वो प्यार जो हर दुआ में बसता है। 🌸<br>जो प्रेम देते हैं, वह कभी खत्म नहीं होता — वो बस साथ चलता है, सदा के लिए।</p></div></div>
 
-    <section id="photos" class="photo-tiles-section"><h2 class="section-title">💛 अमूल्य पलों का खज़ाना 💛</h2><div class="tiles-grid"><div class="photo-tile" onclick="openLightbox(this)"><img id="nani-photo" src="Nani Ji.png" alt="नानी जी"><div class="photo-tile-overlay"><div class="photo-tile-label">हमारी आत्मा</div><div class="photo-tile-description">जिनकी मुस्कान में घर बसता था 💛</div></div></div><div class="photo-tile" onclick="openLightbox(this)"><img id="varsha-photo" src="Varshanani.png" alt="वर्षा और नानी"><div class="photo-tile-overlay"><div class="photo-tile-label">प्यार की छाँव</div><div class="photo-tile-description">हाथों में हाथ, दिलों में दुआएं 🌸</div></div></div></div><p style="text-align:center; margin-top:1rem;">⭐ <strong>फोटो बदलें:</strong> img id="nani-photo" और "varsha-photo" के src में अपनी फोटो का पथ लिखें (जैसे 'images/nani.jpg')</p></section>
+    <section id="photos" class="photo-tiles-section"><h2 class="section-title">💛 अमूल्य पलों का खज़ाना 💛</h2><div class="tiles-grid"><div class="photo-tile" onclick="openLightbox(this)"><img id="nani-photo" src="Nani Ji.png" alt="नानी जी" onerror="this.src='https://via.placeholder.com/500x500/C71585/fff?text=नानी+जी'"><div class="photo-tile-overlay"><div class="photo-tile-label">हमारी आत्मा</div><div class="photo-tile-description">जिनकी मुस्कान में घर बसता था 💛</div></div></div><div class="photo-tile" onclick="openLightbox(this)"><img id="varsha-photo" src="Varsha&nani.png" alt="वर्षा और नानी" onerror="this.src='https://via.placeholder.com/500x500/FFD700/fff?text=वर्षा+और+नानी'"><div class="photo-tile-overlay"><div class="photo-tile-label">प्यार की छाँव</div><div class="photo-tile-description">हाथों में हाथ, दिलों में दुआएं 🌸</div></div></div></div><p style="text-align:center; margin-top:1rem; font-size:0.9rem;">⭐ <strong>फोटो बदलें:</strong> img id="nani-photo" और "varsha-photo" के src में अपनी फोटो का पथ लिखें (जैसे 'Nani Ji.png', 'Varsha&nani.png')</p></section>
 
     <div class="divider">🌸 ✦ 💛 ✦ 🌸</div>
     <section id="memories"><h2 class="section-title">नानी जी की प्यारी यादें</h2><div class="memory-tiles"><div class="memory-tile"><span class="memory-icon">🏠🍚</span><h3>नानी का आँचल</h3><p>वह गर्माहट जब नानी हाथ से खाना खिलाती थीं, कोने में रखी हींग की शीशी, और हर त्योहार पर बनने वाली खीर — सब कुछ अब भी महकता है।</p></div><div class="memory-tile"><span class="memory-icon">📿🙏</span><h3>दुआओं का हाथ</h3><p>आपके हाथ हमेशा सिर पर रहते थे। डर लगता था तो कहती थीं "मेरी बच्ची, मैं हूँ ना।" वो स्नेह आज भी रूह को सुकून देता है।</p></div><div class="memory-tile"><span class="memory-icon">🌼👘</span><h3>पुरानी साड़ी और सोंधी खुशबू</h3><p>नानी की साड़ियों में बरसों पुरानी यादें समाई हैं। उनका हल्का इत्र, आँचल में छुपा प्यार — जैसे वो अब भी पास हों।</p></div><div class="memory-tile"><span class="memory-icon">🍲💖</span><h3>हाथों का जादू</h3><p>हर दाल में प्रेम, हर रोटी में ममता। नानी का बना भोजन केवल स्वाद नहीं, आशीर्वाद का स्पर्श था। जीवन भर उसके जैसा स्वाद कहीं नहीं मिला।</p></div><div class="memory-tile"><span class="memory-icon">💬✨</span><h3>कहानियों की पोटली</h3><p>रातोंरात परियों की कहानी से लेकर जीवन के सच तक — नानी की हर बात अनमोल रत्न थी। उनकी हँसी हमारी सबसे प्यारी लोरी थी।</p></div></div></section>
 
     <div class="divider">🪔 ✦ 🙏 ✦ 🪔</div>
-    <section id="wisdom"><h2 class="section-title">नानी जी के अनमोल नुस्खे</h2><div class="wisdom-grid"><div class="wisdom-card"><div class="wisdom-icon">🌿</div><h3>अदरक वाली चाय</h3><p>सर्दी हो या उदासी, नानी कहती थीं — "गरम चाय और मुस्कान, सब दुख भगा दे।"</p></div><div class="wisdom-card"><div class="wisdom-icon">❤️</div><h3>रिश्तों की मिठास</h3><p>गुस्से में भी प्यार बोलो, क्योंकि रिश्ते नाजुक होते हैं, पर नानी का स्नेह उन्हें मजबूत बनाता है।</p></div><div class="wisdom-card"><div class="wisdom-icon">😴🌙</div><h3>शाम का दीया</h3><p>रोज़ शाम दीया जलाओ, और अपने सुख-दुख ईश्वर से कहो। मन शांत होगा, दिल हल्का होगा।</p></div><div class="wisdom-card"><div class="wisdom-icon">🌻</div><h3>छोटी-छोटी खुशियाँ</h3><p>नानी कहती थीं — “खुशी के लिए बड़ी चीज़ों का इंतज़ार मत करो, चिड़ियों के चहचहाने में भी स्वर्ग बसता है।”</p></div><div class="wisdom-card"><div class="wisdom-icon">⭐</div><h3>मेहनत का फल</h3><p>"जितनी मेहनत करोगी, उतना ही सफलता तुम्हारे कदम चूमेगी।" उनकी दुआओं में ताकत थी।</p></div><div class="wisdom-card"><div class="wisdom-icon">👪</div><h3>परिवार ही धन</h3><p>रिश्तों में प्रेम रखो, बिना शर्त देना सीखो। नानी कहती थीं “परिवार की मुस्कान ही सबसे बड़ी पूंजी है।”</p></div></div></section>
+    <section id="wisdom"><h2 class="section-title">नानी जी के अनमोल नुस्खे</h2><div class="wisdom-grid"><div class="wisdom-card"><div class="wisdom-icon">🌿</div><h3>अदरक वाली चाय</h3><p>सर्दी हो या उदासी, नानी कहती थीं — "गरम चाय और मुस्कान, सब दुख भगा दे।"</p></div><div class="wisdom-card"><div class="wisdom-icon">❤️</div><h3>रिश्तों की मिठास</h3><p>गुस्से में भी प्यार बोलो, क्योंकि रिश्ते नाजुक होते हैं, पर नानी का स्नेह उन्हें मजबूत बनाता है।</p></div><div class="wisdom-card"><div class="wisdom-icon">😴🌙</div><h3>शाम का दीया</h3><p>रोज़ शाम दीया जलाओ, और अपने सुख-दुख ईश्वर से कहो। मन शांत होगा, दिल हल्का होगा।</p></div><div class="wisdom-card"><div class="wisdom-icon">🌻</div><h3>छोटी-छोटी खुशियाँ</h3><p>नानी कहती थीं — "खुशी के लिए बड़ी चीज़ों का इंतज़ार मत करो, चिड़ियों के चहचहाने में भी स्वर्ग बसता है।"</p></div><div class="wisdom-card"><div class="wisdom-icon">⭐</div><h3>मेहनत का फल</h3><p>"जितनी मेहनत करोगी, उतना ही सफलता तुम्हारे कदम चूमेगी।" उनकी दुआओं में ताकत थी।</p></div><div class="wisdom-card"><div class="wisdom-icon">👪</div><h3>परिवार ही धन</h3><p>रिश्तों में प्रेम रखो, बिना शर्त देना सीखो। नानी कहती थीं "परिवार की मुस्कान ही सबसे बड़ी पूंजी है।"</p></div></div></section>
 
     <div class="divider">🌸 ✦ 💛 ✦ 🌸</div>
     <section id="blessing"><div class="blessing-section"><div class="blessing-content"><h2 class="blessing-title">नानी जी की अखंड आशीर्वाद 🙏</h2><div class="blessing-hindi"><p>💛 मेरी प्यारी गुड़ियों — वर्षा और मनीषा 💛</p><p style="font-size:1.2rem;">"मैं सितारों में बसी हूँ, हवा की हर सरसराहट में हूँ। तुम जहाँ भी रहो, मेरी दृष्टि तुम पर है।"</p></div><p class="blessing-message">जब भी तुम्हें अकेलापन लगे, बस आँखें बंद करके महसूस करना — मैं तुम्हारे कंधे पर हाथ रखे हूँ। हर मुश्किल में रास्ता दिखाऊंगी, हर सफलता पर गर्व से सीना चौड़ा करूंगी।</p><div class="blessing-buttons"><button class="btn" onclick="showBlessingMessage()">✨ आशीर्वाद प्राप्त करें ✨</button><button class="btn btn-secondary" onclick="triggerHugAnimation()">🤗 नानी को हृदय से लगाएं 🤗</button></div></div></div></section>
@@ -132,45 +142,189 @@
     <footer><p>🌸 "नानी जी का आशीर्वाद हमारी रूह की सबसे कोमल चादर है" 🌸</p><p>💛 उनके सिखाए सबक, उनकी मुस्कान, वो हाथों की सिलवटें — सदा दिल की धड़कनों में बसती रहेंगी 💛<br>— वर्षा, मनीषा एवं पूरा परिवार</p></footer>
 
     <script>
-        // 🎵🎵 LOCAL MUSIC: ADD YOUR SONG FILE NAMES HERE 🎵🎵
+        // ========== 🎵🎵 YOUR SONGS - ADD YOUR FILE NAMES HERE 🎵🎵 ==========
+        // ✅ Already added: "Maa Song.mp3" and "Meri Maa.mp3"
+        // To add more songs, just add objects to this array like: { name: "Song Name", file: "filename.mp3" }
         const songFiles = [
-  {
-        name: "Maa Song",
-        file: "Maa Song.mp3"
-    },
-    {
-        name: "Meri Maa",
-        file: "Meri Maa.mp3"
-    }         // Replace with third song
+            { name: "🌸 Maa Song 🌸", file: "Maa Song.mp3" },
+            { name: "💖 Meri Maa 💖", file: "Meri Maa.mp3" }
+        ];
+        // ==================================================================
+        
+        let currentSongIndex = 0;
+        let audioPlayer = new Audio();
+        let isPlaying = false;
+        
+        function loadSong(index) {
+            if (!songFiles.length) return;
+            if (index >= songFiles.length) index = 0;
+            if (index < 0) index = songFiles.length - 1;
+            currentSongIndex = index;
+            audioPlayer.src = songFiles[currentSongIndex].file;
+            audioPlayer.load();
+            document.getElementById('currentSongName').innerText = songFiles[currentSongIndex].name;
+            if (isPlaying) {
+                audioPlayer.play().catch(e => console.log("Playback error:", e));
+            }
+        }
+        
+        function playPause() {
+            if (!songFiles.length) return;
+            if (isPlaying) {
+                audioPlayer.pause();
+                isPlaying = false;
+                document.getElementById('playPauseBtn').innerHTML = '▶️';
+                document.getElementById('musicPlayerBtn').classList.remove('playing');
+            } else {
+                audioPlayer.play().catch(e => console.log("Autoplay blocked - user interaction needed"));
+                isPlaying = true;
+                document.getElementById('playPauseBtn').innerHTML = '⏸️';
+                document.getElementById('musicPlayerBtn').classList.add('playing');
+            }
+        }
+        
+        function nextSong() {
+            if (songFiles.length) {
+                loadSong(currentSongIndex + 1);
+                if (isPlaying) audioPlayer.play();
+            }
+        }
+        
+        function prevSong() {
+            if (songFiles.length) {
+                loadSong(currentSongIndex - 1);
+                if (isPlaying) audioPlayer.play();
+            }
+        }
+        
+        // Event Listeners
+        document.getElementById('volumeSlider').addEventListener('input', (e) => { audioPlayer.volume = e.target.value; });
+        document.getElementById('musicPlayerBtn').addEventListener('click', () => { document.getElementById('musicControlPanel').classList.toggle('hidden'); });
+        document.getElementById('playPauseBtn').addEventListener('click', playPause);
+        document.getElementById('prevBtn').addEventListener('click', prevSong);
+        document.getElementById('nextBtn').addEventListener('click', nextSong);
+        document.getElementById('musicLibraryBtn').addEventListener('click', () => { renderSongList(); document.getElementById('musicLibraryModal').classList.add('active'); });
+        document.getElementById('closeLibraryBtn').addEventListener('click', () => document.getElementById('musicLibraryModal').classList.remove('active'));
+        
+        function renderSongList() {
+            let container = document.getElementById('songListContainer');
+            container.innerHTML = '';
+            songFiles.forEach((s, idx) => {
+                let div = document.createElement('div');
+                div.className = 'song-item' + (idx === currentSongIndex ? ' active-song' : '');
+                div.innerHTML = `🎵 ${s.name}`;
+                div.onclick = () => {
+                    loadSong(idx);
+                    if (isPlaying) audioPlayer.play();
+                    document.getElementById('musicLibraryModal').classList.remove('active');
+                };
+                container.appendChild(div);
+            });
+            if (songFiles.length === 0) container.innerHTML = '<p>✨ कोई गीत नहीं, songFiles में फ़ाइल नाम डालें ✨</p>';
+        }
+        
+        audioPlayer.addEventListener('ended', () => nextSong());
+        audioPlayer.volume = 0.5;
+        if (songFiles.length) loadSong(0);
+        
+        // Floating Elements & Blessings
+        function createFloatingElements() {
+            let c = document.getElementById('floatingContainer');
+            let emojis = ['🌸', '🌺', '🌼', '🌻', '💛', '✨', '🙏', '🪔', '💖', '🌹'];
+            for (let i = 0; i < 35; i++) {
+                let el = document.createElement('div');
+                el.className = 'floating-element';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.fontSize = (0.8 + Math.random() * 1.8) + 'rem';
+                el.style.animationDuration = (15 + Math.random() * 25) + 's';
+                el.style.animationDelay = (Math.random() * 8) + 's';
+                c.appendChild(el);
+            }
+        }
+        
+        const blessingMessages = [
+            { title: '✨ सदा मुस्कुराते रहो ✨', text: 'तेरी मुस्कान मेरी शांति है। दुनिया चाहे कुछ भी कहे, तुम सदा प्यार और सफलता पाओ। 💛' },
+            { title: '🌟 फूलो-फलो, मेरे बच्चे 🌟', text: 'हर सुबह नई आशा लेकर आती है। मेहनत से काम करो, भगवान तुम्हारे साथ है।' },
+            { title: '💖 प्रेम ही सत्य है 💖', text: 'नफरत को माफी से जीतो, दुख को प्यार से बदलो। नानी हमेशा गर्व करती है तुम पर।' },
+            { title: '🙏 अखंड दुआ 🙏', text: 'जहाँ भी रहो, खुश रहने का हुनर मत भूलना। तुम मेरे दिल के दो मोती हो।' },
+            { title: '🌼 अमर रिश्ता 🌼', text: 'मैं हर ख्वाब में तुम्हें छूती हूँ, हर शाम की चुनरिया में लिपटी हूँ। मेरी आत्मा हमेशा तुम्हारी रक्षा करेगी।' }
         ];
         
-        let currentSongIndex = 0, audioPlayer = new Audio(), isPlaying = false;
-        function loadSong(index) { if(!songFiles.length) return; if(index>=songFiles.length) index=0; if(index<0) index=songFiles.length-1; currentSongIndex=index; audioPlayer.src=songFiles[currentSongIndex].file; audioPlayer.load(); document.getElementById('currentSongName').innerText=songFiles[currentSongIndex].name; if(isPlaying) audioPlayer.play().catch(e=>{}); }
-        function playPause() { if(!songFiles.length) return; if(isPlaying) { audioPlayer.pause(); isPlaying=false; document.getElementById('playPauseBtn').innerHTML='▶️'; document.getElementById('musicPlayerBtn').classList.remove('playing'); } else { audioPlayer.play().catch(e=>console.log); isPlaying=true; document.getElementById('playPauseBtn').innerHTML='⏸️'; document.getElementById('musicPlayerBtn').classList.add('playing'); } }
-        function nextSong() { if(songFiles.length) { loadSong(currentSongIndex+1); if(isPlaying) audioPlayer.play(); } }
-        function prevSong() { if(songFiles.length) { loadSong(currentSongIndex-1); if(isPlaying) audioPlayer.play(); } }
-        document.getElementById('volumeSlider').addEventListener('input',(e)=>audioPlayer.volume=e.target.value);
-        document.getElementById('musicPlayerBtn').addEventListener('click',()=>{ document.getElementById('musicControlPanel').classList.toggle('hidden'); });
-        document.getElementById('playPauseBtn').addEventListener('click',playPause);
-        document.getElementById('prevBtn').addEventListener('click',prevSong);
-        document.getElementById('nextBtn').addEventListener('click',nextSong);
-        document.getElementById('musicLibraryBtn').addEventListener('click',()=>{ renderSongList(); document.getElementById('musicLibraryModal').classList.add('active'); });
-        document.getElementById('closeLibraryBtn').addEventListener('click',()=>document.getElementById('musicLibraryModal').classList.remove('active'));
-        function renderSongList() { let container=document.getElementById('songListContainer'); container.innerHTML=''; songFiles.forEach((s,idx)=>{ let div=document.createElement('div'); div.className='song-item'+(idx===currentSongIndex?' active-song':''); div.innerHTML=`🎵 ${s.name}`; div.onclick=()=>{ loadSong(idx); if(isPlaying) audioPlayer.play(); document.getElementById('musicLibraryModal').classList.remove('active'); }; container.appendChild(div); }); if(songFiles.length===0) container.innerHTML='<p>✨ कोई गीत नहीं, songFiles में फ़ाइल नाम डालें ✨</p>'; }
-        audioPlayer.addEventListener('ended',()=>nextSong()); audioPlayer.volume=0.5; if(songFiles.length) loadSong(0);
+        window.showBlessingMessage = function() {
+            let m = blessingMessages[Math.floor(Math.random() * blessingMessages.length)];
+            document.getElementById('blessingTitle').innerText = m.title;
+            document.getElementById('blessingText').innerText = m.text;
+            document.getElementById('blessingModal').classList.add('active');
+            setTimeout(() => closeBlessingMessage(), 6000);
+        };
         
-        // Floating Blessings & Animations
-        function createFloatingElements() { let c=document.getElementById('floatingContainer'); let emojis=['🌸','🌺','🌼','🌻','💛','✨','🙏','🪔','💖','🌹']; for(let i=0;i<35;i++){ let el=document.createElement('div'); el.className='floating-element'; el.textContent=emojis[Math.floor(Math.random()*emojis.length)]; el.style.left=Math.random()*100+'%'; el.style.fontSize=(0.8+Math.random()*1.8)+'rem'; el.style.animationDuration=(15+Math.random()*25)+'s'; el.style.animationDelay=(Math.random()*8)+'s'; c.appendChild(el); } }
-        const blessingMessages = [{ title:'✨ सदा मुस्कुराते रहो ✨', text:'तेरी मुस्कान मेरी शांति है। दुनिया चाहे कुछ भी कहे, तुम सदा प्यार और सफलता पाओ। 💛' },{ title:'🌟 फूलो-फलो, मेरे बच्चे 🌟', text:'हर सुबह नई आशा लेकर आती है। मेहनत से काम करो, भगवान तुम्हारे साथ है।' },{ title:'💖 प्रेम ही सत्य है 💖', text:'नफरत को माफी से जीतो, दुख को प्यार से बदलो। नानी हमेशा गर्व करती है तुम पर।' },{ title:'🙏 अखंड दुआ 🙏', text:'जहाँ भी रहो, खुश रहने का हुनर मत भूलना। तुम मेरे दिल के दो मोती हो।' },{ title:'🌼 अमर रिश्ता 🌼', text:'मैं हर ख्वाब में तुम्हें छूती हूँ, हर शाम की चुनरिया में लिपटी हूँ। मेरी आत्मा हमेशा तुम्हारी रक्षा करेगी।' }];
-        window.showBlessingMessage=function(){ let m=blessingMessages[Math.floor(Math.random()*blessingMessages.length)]; document.getElementById('blessingTitle').innerText=m.title; document.getElementById('blessingText').innerText=m.text; document.getElementById('blessingModal').classList.add('active'); setTimeout(()=>closeBlessingMessage(),6000); };
-        window.closeBlessingMessage=function(){ document.getElementById('blessingModal').classList.remove('active'); };
-        window.triggerHugAnimation=function(){ let hugs=['🤗💛','🫂🌸','💕✨','🙏🌹','🪔💖']; for(let i=0;i<20;i++){ setTimeout(()=>{ let d=document.createElement('div'); d.className='heart-burst'; d.textContent=hugs[Math.floor(Math.random()*hugs.length)]; d.style.left=(window.innerWidth/2-40+(Math.random()-0.5)*300)+'px'; d.style.top=(window.innerHeight*0.6)+'px'; d.style.fontSize=(1.8+Math.random()*2)+'rem'; document.body.appendChild(d); setTimeout(()=>d.remove(),2500); },i*80); } };
-        window.openLightbox=function(tile){ let img=tile.querySelector('img'); if(img){ document.getElementById('lightboxImage').src=img.src; document.getElementById('lightbox').classList.add('active'); } };
-        window.closeLightbox=function(){ document.getElementById('lightbox').classList.remove('active'); };
-        document.getElementById('lightbox').addEventListener('click',(e)=>{ if(e.target===document.getElementById('lightbox')) closeLightbox(); });
-        document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){ e.preventDefault(); let t=document.querySelector(this.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'}); }));
+        window.closeBlessingMessage = function() {
+            document.getElementById('blessingModal').classList.remove('active');
+        };
+        
+        window.triggerHugAnimation = function() {
+            let hugs = ['🤗💛', '🫂🌸', '💕✨', '🙏🌹', '🪔💖', '👵❤️', '🌸🤗'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    let d = document.createElement('div');
+                    d.className = 'heart-burst';
+                    d.textContent = hugs[Math.floor(Math.random() * hugs.length)];
+                    d.style.left = (window.innerWidth / 2 - 40 + (Math.random() - 0.5) * 300) + 'px';
+                    d.style.top = (window.innerHeight * 0.6) + 'px';
+                    d.style.fontSize = (1.8 + Math.random() * 2) + 'rem';
+                    document.body.appendChild(d);
+                    setTimeout(() => d.remove(), 2500);
+                }, i * 80);
+            }
+        };
+        
+        window.openLightbox = function(tile) {
+            let img = tile.querySelector('img');
+            if (img) {
+                document.getElementById('lightboxImage').src = img.src;
+                document.getElementById('lightbox').classList.add('active');
+            }
+        };
+        
+        window.closeLightbox = function() {
+            document.getElementById('lightbox').classList.remove('active');
+        };
+        
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) closeLightbox();
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
+            e.preventDefault();
+            let t = document.querySelector(this.getAttribute('href'));
+            if (t) t.scrollIntoView({ behavior: 'smooth' });
+        }));
+        
         createFloatingElements();
-        document.addEventListener('click',(e)=>{ if(e.target.closest('.photo-tile') && e.target.tagName==='IMG'){ let heart=document.createElement('div'); heart.textContent='💛'; heart.style.position='fixed'; heart.style.left=e.clientX+'px'; heart.style.top=e.clientY+'px'; heart.style.fontSize='2rem'; heart.style.pointerEvents='none'; heart.style.animation='burst-up 2s forwards'; document.body.appendChild(heart); setTimeout(()=>heart.remove(),2000); } });
+        
+        // Heart animation on photo click
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.photo-tile') && e.target.tagName === 'IMG') {
+                let heart = document.createElement('div');
+                heart.textContent = '💛';
+                heart.style.position = 'fixed';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.fontSize = '2rem';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '10000';
+                heart.style.animation = 'burst-up 2s forwards';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        });
+        
+        // Close music modal when clicking outside
+        window.onclick = function(event) {
+            let modalLib = document.getElementById('musicLibraryModal');
+            if (event.target === modalLib) modalLib.classList.remove('active');
+        };
     </script>
 </body>
 </html>
